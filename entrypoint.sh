@@ -18,22 +18,26 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 # first check if environment variable be set or not
-if [ -z "${USER}" ]; then
-    echo "ERROR: We need USER to be set!"; exit 100
-fi
+#if [ -z $USER ]; then
+#    echo "ERROR: We need USER to be set!"; exit 100
+#fi
 
-if [ -z "${HOST_UID}" ]; then
-    echo "ERROR: We need HOST_UID be set" ; exit 100
-fi
+#if [ -z $UID ]; then
+#    echo "ERROR: We need HOST_UID be set" ; exit 100
+#fi
 
-if [ -z "${HOST_GID}" ]; then
-    echo "ERROR: We need HOST_GID be set" ; exit 100
-fi
+#if [ -z $GID ]; then
+#    echo "ERROR: We need HOST_GID be set" ; exit 100
+#fi
 
 # reset user_?id to either new id or if empty old (still one of above
 # might not be set)
-USER_UID=${HOST_UID:=$UID}
-USER_GID=${HOST_GID:=$GID}
+USER_UID=`id -r -u`
+USER_GID=`id -r -g`
+
+echo ${USER}
+echo ${USER_UID}
+echo ${USER_GID}
 
 # Create Group
 groupadd ${USER} --gid ${USER_GID} > /dev/null 2>&1
@@ -48,6 +52,7 @@ chown -R ${USER_UID}:${USER_GID} /home/${USER} > /dev/null 2>&1
 
 # switch to current user
 su "${USER}"
+echo "${USER}"
 
 # enter to shell
 exec /bin/bash

@@ -3,7 +3,7 @@
 # Author:  Yen-Chin, Lee <yenchin@weintek.com>
 # Command format: Instruction [arguments / command] ..
 
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 MAINTAINER Yen-Chin, Lee, coldnew.tw@gmail.com
 
 # Add 32bit package in package list
@@ -40,7 +40,7 @@ RUN apt-get install -y \
 RUN apt-get install -y xvfb libtool libncurses5-dev libssl-dev zlib1g-dev:i386 tftpd
 
 # Install repo tool for some bsp case, like NXP's yocto
-RUN curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo
+RUN curl https://mirrors.tuna.tsinghua.edu.cn/git/git-repo > /usr/bin/repo
 RUN chmod a+x /usr/bin/repo
 
 # Install Java
